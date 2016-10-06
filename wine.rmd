@@ -1,0 +1,67 @@
+---
+title: "Red Wine Quality"
+output: html_document
+---
+
+We need to analyse which chemical properties influence the quality of red wine.
+The target variable here is the "quality".
+
+```{r input}
+
+wine <- read.csv("wineQualityReds.csv")
+
+```
+
+```{r exploratory data analysis}
+
+library(ggplot2)
+library(corrplot)
+
+str(wine)
+summary(wine)
+table(wine$quality)
+
+# plotting correlation matrix
+cor_matrix <- cor(wine)
+corrplot(cor_matrix, method = "circle", type = "lower")
+
+
+ggplot(data = wine, aes(x = as.factor(quality), y = fixed.acidity)) + geom_boxplot(color= "black", fill = "grey59") + xlab("Wine Quality") + ylab("Tartaric Acid in g / dm^3")
+
+ggplot(data = wine, aes(x = as.factor(quality), y = volatile.acidity)) + geom_boxplot(color= "black", fill = "grey59") + xlab("Wine Quality") + ylab("Acetic Acid (g / dm^3)")
+
+ggplot(data = wine, aes(x = as.factor(quality), y = citric.acid)) + geom_boxplot(color= "black", fill = "grey59") + xlab("Wine Quality") + ylab("Citric acid (g / dm^3)")
+
+ggplot(data = wine, aes(x = as.factor(quality), y = residual.sugar)) + geom_boxplot(color= "black", fill = "grey59") + xlab("Wine Quality") + ylab("Residual sugar (g / dm^3)")
+
+ggplot(data = wine, aes(x = as.factor(quality), y = chlorides)) + geom_boxplot(color= "black", fill = "grey59") + xlab("Wine Quality") + ylab("Chlorides (sodium chloride (g / dm^3")
+
+ggplot(data = wine, aes(x = as.factor(quality), y = free.sulfur.dioxide)) + geom_boxplot(color= "black", fill = "grey59") + xlab("Wine Quality") + ylab("Free Sulfur dioxide (mg / dm^3)")
+
+ggplot(data = wine, aes(x = as.factor(quality), y = total.sulfur.dioxide)) + geom_boxplot(color= "black", fill = "grey59") + xlab("Wine Quality") + ylab("Total sulfur dioxide (mg / dm^3)")
+
+ggplot(data = wine, aes(x = as.factor(quality), y = density)) + geom_boxplot(color= "black", fill = "grey59") + xlab("Wine Quality") + ylab("Density of water (g / cm^3)")
+
+ggplot(data = wine, aes(x = as.factor(quality), y = pH)) + geom_boxplot(color= "black", fill = "grey59") + xlab("Wine Quality") + ylab("pH")
+
+ggplot(data = wine, aes(x = as.factor(quality), y = sulphates)) + geom_boxplot(color= "black", fill = "grey59") + xlab("Wine Quality") + ylab("Potassium sulphate (g / dm3")
+
+ggplot(data = wine, aes(x = as.factor(quality), y = alcohol)) + geom_boxplot(color= "black", fill = "grey59") + xlab("Wine Quality") + ylab("Alcohol (% by volume)")
+
+
+
+
+```
+
+```{r significant plots}
+ggplot(data = wine, aes(x = as.factor(quality), y = volatile.acidity)) + geom_boxplot(color= "black", fill = "grey59") + xlab("Wine Quality") + ylab("Acetic Acid (g / dm^3)")
+
+ggplot(data = wine, aes(x = as.factor(quality), y = citric.acid)) + geom_boxplot(color= "black", fill = "grey59") + xlab("Wine Quality") + ylab("Citric acid (g / dm^3)")
+
+ggplot(data = wine, aes(x = as.factor(quality), y = alcohol)) + geom_boxplot(color= "black", fill = "grey59") + xlab("Wine Quality") + ylab("Alcohol (% by volume)")
+
+
+```
+
+As we can see acetic acid, citric acid and alcohol content have significant impact on the quality of wine.
+High amount of acetic acid results in low quality wine whereas high amount of alcohol and citric acid results in good quality wine.
